@@ -5,7 +5,7 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 
 
-const user = false;
+const user = true;
 
 export default class NavBar extends Component {
   render() {
@@ -13,10 +13,21 @@ export default class NavBar extends Component {
       <AppBar
       title="Pokenmon Dream"
       showMenuIconButton={false}
-      iconElementRight={user?<NavRight />:<FlatButton label="Login" primary={true} />}
+      iconElementRight={user?<NavRight />:<LogButton />}
       iconStyleRight={user?{width: '700px'}:{width: '100px'}}
       />
     )
+  }
+}
+
+class LogButton extends Component {
+  handleClick(evt){
+
+  }
+  render() {
+    return (
+      <FlatButton label="Login" style={{color: 'white'}} onClick={this.handleClick}/>
+    );
   }
 }
 
