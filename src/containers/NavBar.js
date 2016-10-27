@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { Link } from 'react-router';
 import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 
+
+const user = false;
 
 export default class NavBar extends Component {
   render() {
@@ -10,8 +13,8 @@ export default class NavBar extends Component {
       <AppBar
       title="Pokenmon Dream"
       showMenuIconButton={false}
-      iconElementRight={<NavRight />}
-      iconStyleRight={{width: '700px'}}
+      iconElementRight={user?<NavRight />:<FlatButton label="Login" primary={true} />}
+      iconStyleRight={user?{width: '700px'}:{width: '100px'}}
       />
     )
   }
@@ -23,8 +26,8 @@ class NavRight extends Component {
       <Tabs>
         <Tab label="Trainer" containerElement={<Link to="/" />} />
         <Tab label="Battle" containerElement={<Link to="/battle_room" />}/>
-        <Tab label="Disabled" containerElement={<Link to="/" />} />
-        <Tab label="Disabled Too" containerElement={<Link to="/" />}/>
+        <Tab label="Disabled" containerElement={<Link to="/" />} disabled={true}/>
+        <Tab label="Disabled Too" containerElement={<Link to="/" />}  disabled={true}/>
       </Tabs>
     );
   }
