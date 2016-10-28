@@ -5,12 +5,18 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Router, browserHistory } from 'react-router';
 import ReduxThunk from 'redux-thunk';
+import createLogger from 'redux-logger';
 import reducers from './reducers/index';
 import routes from './config/routes';
 import './index.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { listenToAuth } from './actions/auth';
+
 
 injectTapEventPlugin()
+
+const logger = createLogger();
+const middlewares = [ReduxThunk, logger];
 
 const composeEnhancers =
     process.env.NODE_ENV !== 'production' &&
@@ -22,9 +28,10 @@ const composeEnhancers =
 
 
 const store = createStore(reducers, composeEnhancers(
-    applyMiddleware(ReduxThunk)
+    applyMiddleware(...middlewares)
 ))
 
+store.dispatch(listenToAuth())
 
 ReactDOM.render(
   <Provider store={store}>

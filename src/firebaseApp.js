@@ -1,5 +1,5 @@
 import C from './constants';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 
 firebase.initializeApp(C.firebaseConfig);
 export const auth = firebase.auth();
