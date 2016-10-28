@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { Link } from 'react-router';
 import AppBar from 'material-ui/AppBar';
@@ -40,12 +40,19 @@ const mapDispatchToProps = {
 }
 
 class NavRight extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+  handleLogout(){
+    this.props.logout()
+    this.context.router.push('/')
+  }
   render() {
     return (
       <Tabs>
-        <Tab label="Trainer" containerElement={<Link to="/" />} />
+        <Tab label="Trainer" containerElement={<Link to="/trainer_info" />} />
         <Tab label="Battle" containerElement={<Link to="/battle_room" />}/>
-        <Tab label="Logout" onClick={this.props.logout}/>
+        <Tab label="Logout" onClick={this.handleLogout.bind(this)}/>
       </Tabs>
     );
   }
