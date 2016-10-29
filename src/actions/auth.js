@@ -13,7 +13,6 @@ export const listenToAuth = () => {
           uid: authData.uid,
           username: authData.displayName
         });
-
         // reload articles on auth update.
         // const listenToArticlesDispatcher = listenToArticles();
         // listenToArticlesDispatcher(dispatch, getState);

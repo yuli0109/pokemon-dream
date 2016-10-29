@@ -1,0 +1,7 @@
+export default {
+  // ACTIONS
+  GET_POKEMON: 'GET_POKEMON',
+
+  // STATES
+  GET_POKE_FAILED: 'GET_POKE_FAILED',
+};
