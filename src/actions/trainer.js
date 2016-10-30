@@ -25,3 +25,16 @@ export const getPokemon = () => {
     };
   }
 }
+
+export const selectPokemon = (pokeIndex) => {
+  return (dispatch) => {
+    axios.get(`${baseUrl}${pokeIndex}`)
+    .then(data => {
+      dispatch({
+        type: C.SELECT_POKEMON,
+        api_data: data
+      });
+    })
+  }
+}
+

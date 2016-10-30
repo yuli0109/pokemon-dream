@@ -1,0 +1,13 @@
+.trainer-main {
+  width: 100vw;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.selected_pokemon {
+  width: 60vw;
+}
+
+.pokemon_add {
+  width: 25vw;
+}

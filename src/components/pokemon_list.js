@@ -10,11 +10,15 @@ const style = {
 }
 
 class PokemonList extends Component {
+  handleClick(elm) {
+    let url_fragment = elm.url.split('/');
+    this.props.selectPokemon(url_fragment[url_fragment.length-2]);
+  }
   ListItemIter(data) {
     return data.results.map(elm=>{
       return (
         <div key={elm.name}>
-          <ListItem primaryText={elm.name} />
+          <ListItem onClick={this.handleClick.bind(this, elm)} primaryText={elm.name} />
           <Divider style={{'width': '10vw','margin': '0'}}inset={true} />
         </div>
       )
