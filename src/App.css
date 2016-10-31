@@ -8,6 +8,13 @@
   width: 60vw;
 }
 
+.avatar_table {
+  width: 60vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
 .pokemon_add {
   width: 25vw;
   display: flex;

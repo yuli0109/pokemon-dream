@@ -12,7 +12,7 @@ class NavBar extends Component {
     const user = this.props.auth;
     return (
       <AppBar
-      title="Pokenmon Dream"
+      title="Pokemon Dream"
       showMenuIconButton={false}
       iconElementRight={user.uid?<NavRight logout={this.props.logoutUser}/>:<LogButton login={this.props.openAuth}/>}
       iconStyleRight={user.uid?{width: '500px'}:{width: '100px'}}

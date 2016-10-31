@@ -32,15 +32,27 @@ export default (state = initialState, action) => {
         room_1: action.data.room_1,
         room_2: action.data.room_2
       };
+    case C.SEAT_STATUS_RECEIVE:
+      return {
+        ...state,
+        status: action.data
+      };
     case C.TAKING_SEAT:
       return {
         ...state,
-        status: C.TAKING_SEAT
       };
     case C.ON_SEAT:
       return {
+        ...state
+      };
+    case C.LEAVING_SEAT:
+      return {
+        ...state
+      };
+    case C.LEFT_SEAT:
+      return {
         ...state,
-        status: C.ON_SEAT
+        status: null
       }
     default:
       return state;

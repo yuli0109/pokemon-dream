@@ -23,8 +23,7 @@ export default (state = initialState, action) => {
       };
     case C.SAVE_POKEMON:
       return {
-        ...state,
-        pokemon: action.pokemon
+        ...state
       };
     case C.FIREBASE_TRAINER_INITIALIZE_BEGIN:
       return {

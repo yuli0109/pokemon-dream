@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import BattleRoom from '../components/battleroom';
-import { takeSeat } from '../actions/battleRoom';
+import { takeSeat, leaveSeat } from '../actions/battleRoom';
 
 class BattleRooms extends Component {
   render() {
-    const { battlerooms, takeSeat } = this.props
+    const { auth, battlerooms, takeSeat, leaveSeat } = this.props
     return(
       <div style={{'width': '100vw', 'height': '80vw'}}>
         <h1 style={{'textAlign': 'center'}}>Battle Rooms</h1>
         <div className="battlerooms">
-          <BattleRoom roomCode="room_1" takeSeat={takeSeat} roomInfo={battlerooms.room_1} status={battlerooms.status}/>
-          <BattleRoom roomCode="room_2" takeSeat={takeSeat} roomInfo={battlerooms.room_2} status={battlerooms.status}/>
+          <BattleRoom uid={auth.uid} roomCode="room_1" takeSeat={takeSeat} leaveSeat={leaveSeat} roomInfo={battlerooms.room_1} status={battlerooms.status}/>
+          <BattleRoom uid={auth.uid} roomCode="room_2" takeSeat={takeSeat} leaveSeat={leaveSeat} roomInfo={battlerooms.room_2} status={battlerooms.status}/>
         </div>
       </div>
     )
@@ -19,8 +19,11 @@ class BattleRooms extends Component {
 }
 
 function mapStateToProps(state) {
-  return {battlerooms: state.battlerooms}
+  return {
+    battlerooms: state.battlerooms,
+    auth: state.auth
+  }
 }
 
 
-export default connect(mapStateToProps, { takeSeat })(BattleRooms)
+export default connect(mapStateToProps, { takeSeat, leaveSeat })(BattleRooms)

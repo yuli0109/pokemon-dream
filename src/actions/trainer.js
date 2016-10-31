@@ -3,6 +3,7 @@ import C from '../constants/index';
 import { database } from '../firebaseApp';
 
 const trainersRef = database.ref('trainers');
+const seatStatusRef = database.ref('seatStatus');
 
 const baseUrl = `https://pokeapi.co/api/v2/pokemon/`;
 
@@ -43,17 +44,16 @@ export const selectPokemon = (pokeIndex) => {
 
 export const savePokemon = (props) => {
   return (dispatch, getState) => {
-    const pokemon = {
+    let pokemonNew = {};
+    pokemonNew[getState().auth.uid] = {
       name: getState().trainer.selected_pokemon.data.name,
       pokemon_id: getState().trainer.selected_pokemon.data.id,
-      trainer: getState().auth.uid,
       moves: props
     }
     dispatch({
-      type: C.SAVE_POKEMON,
-      pokemon: pokemon
+      type: C.SAVE_POKEMON
     });
-    trainersRef.push(pokemon, (error) => {
+    trainersRef.update(pokemonNew, (error) => {
       dispatch({type: C.FIREBASE_TRAINER_INITIALIZE_BEGIN});
       if (error) {
         dispatch({
@@ -65,6 +65,9 @@ export const savePokemon = (props) => {
           type: C.INITIALIZE_TRAINER_SUCCEED,
           message: 'Submission successfully saved!'
         });
+        let seatNew = {};
+        seatNew[getState().auth.uid] = false;
+        seatStatusRef.update(seatNew)
       }
     });
   };

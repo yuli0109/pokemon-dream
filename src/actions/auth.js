@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import C from '../constants/index';
 import { auth } from '../firebaseApp';
-import { listenToBattlerooms } from './battleRoom';
+import { listenToBattlerooms, listenToSeats } from './battleRoom';
 
 
 export const listenToAuth = () => {
@@ -13,8 +13,10 @@ export const listenToAuth = () => {
           uid: authData.uid,
           username: authData.displayName
         });
-        const listenToArticlesDispatcher = listenToBattlerooms()
-        listenToArticlesDispatcher(dispatch, getState);
+        const listenToBattleroomsDispatcher = listenToBattlerooms();
+        const listenToSeatsDispatcher = listenToSeats();
+        listenToBattleroomsDispatcher(dispatch, getState);
+        listenToSeatsDispatcher(dispatch, getState);
       } else {
         if (getState().auth.status !== C.AUTH_ANONYMOUS) {
           dispatch({ type: C.AUTH_LOGOUT });

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
@@ -6,6 +6,8 @@ import { Field, reduxForm } from 'redux-form';
 import 'react-select/dist/react-select.css';
 import { savePokemon } from '../actions/trainer';
 import SelectMove from '../components/select_move';
+import StatusTable from '../components/status_table';
+
 
 class renderMoveField extends Component {
   render() {
@@ -25,8 +27,12 @@ class renderMoveField extends Component {
 
 
 class PokemonForm extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
   onSubmit(props) {
-    this.props.savePokemon(props)
+    this.props.savePokemon(props);
+    this.context.router.push('/battle_room');
   }
   render() {
     const { trainer, handleSubmit, pristine, submitting, reset } = this.props;
@@ -40,12 +46,15 @@ class PokemonForm extends Component {
     return (
       <div className='selected_pokemon'>
         <h1 style={{'textAlign': 'center'}}>Selected Pokemon</h1>
-        <Avatar
-          src={this.props.selectedPokemon.data.sprites.front_default}
-          size={200}
-          style={{'marginLeft': '40px'}}
-          backgroundColor={'white'}
-        />
+        <div className="avatar_table">
+          <Avatar
+            src={this.props.selectedPokemon.data.sprites.front_default}
+            size={200}
+            style={{'marginLeft': '40px'}}
+            backgroundColor={'white'}
+          />
+          <StatusTable stats={pokemon_data.stats}/>
+        </div>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
             label="Move 1"
