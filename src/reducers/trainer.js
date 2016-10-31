@@ -4,7 +4,8 @@ const initialState = {
   uid: null,
   pokemon: null,
   selected_pokemon: null,
-  api_data: null
+  api_data: null,
+  status: null,
 }
 
 export default (state = initialState, action) => {
@@ -24,6 +25,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         pokemon: action.pokemon
+      };
+    case C.FIREBASE_TRAINER_INITIALIZE_BEGIN:
+      return {
+        ...state,
+        status: 'Submmiting'
+      };
+    case C.INITIALIZE_TRAINER_SUCCEED:
+      return {
+        ...state,
+        status: action.message
       };
     default:
       return state

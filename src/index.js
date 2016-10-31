@@ -11,6 +11,7 @@ import routes from './config/routes';
 import './index.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { listenToAuth } from './actions/auth';
+import { listenToBattlerooms } from './actions/battleRoom';
 
 
 injectTapEventPlugin()
@@ -32,6 +33,7 @@ const store = createStore(reducers, composeEnhancers(
 ))
 
 store.dispatch(listenToAuth())
+store.dispatch(listenToBattlerooms())
 
 ReactDOM.render(
   <Provider store={store}>
