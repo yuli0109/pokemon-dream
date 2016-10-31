@@ -10,4 +10,16 @@
 
 .pokemon_add {
   width: 25vw;
+  display: flex;
+  flex-direction: column;
 }
+
+.pokemon_divider, .pokemon_list_item:hover {
+  background-color: #E8EAF6 !important;
+}
+
+.has-danger {
+  color: #d9534f !important;
+  border-color: #d9534f !important;
+}
+

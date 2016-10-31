@@ -19,7 +19,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         selected_pokemon: action.api_data
-      }
+      };
+    case C.SAVE_POKEMON:
+      return {
+        ...state,
+        pokemon: action.pokemon
+      };
     default:
       return state
   }

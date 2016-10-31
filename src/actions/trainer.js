@@ -38,3 +38,15 @@ export const selectPokemon = (pokeIndex) => {
   }
 }
 
+export const savePokemon = (props) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: C.SAVE_POKEMON,
+      pokemon: {
+        trainer: getState().auth.uid,
+        moves: props
+      }
+    });
+  }
+}
+

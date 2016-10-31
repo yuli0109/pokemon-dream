@@ -21,7 +21,7 @@ class Trainer extends Component {
           labelPosition="before"
           icon={<FontIcon className="material-icons">whatshot</FontIcon>}
           primary={true}
-          style={{margin: 12}}
+          style={{'margin': '0 auto', 'marginTop': '12px', 'marginBottom': '12px', 'width': '18vw'}}
           onClick={this.handleClick.bind(this)}
         />
         <PokemonList api_data={api_data} selectPokemon={this.props.selectPokemon}/>
