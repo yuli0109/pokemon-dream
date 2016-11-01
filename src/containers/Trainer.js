@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getPokemon, selectPokemon } from '../actions/trainer';
 import PokemonList from '../components/pokemon_list';
 import PokemonForm from './pokemon_form';
+import TrainerMain from './trainer_main';
 
 
 class Trainer extends Component {
@@ -12,21 +13,24 @@ class Trainer extends Component {
     this.props.getPokemon()
   }
   render() {
-    const { api_data, selected_pokemon } = this.props.trainer
+    const { pokemon, api_data, selected_pokemon } = this.props.trainer
     return (
       <div className='trainer-main'>
-        <div className='pokemon_add'>
-        <RaisedButton
-          label="Get Your Pokemon"
-          labelPosition="before"
-          icon={<FontIcon className="material-icons">whatshot</FontIcon>}
-          primary={true}
-          style={{'margin': '0 auto', 'marginTop': '12px', 'marginBottom': '12px', 'width': '18vw'}}
-          onClick={this.handleClick.bind(this)}
-        />
-        <PokemonList api_data={api_data} selectPokemon={this.props.selectPokemon}/>
-        </div>
-        {selected_pokemon ? <PokemonForm selectedPokemon={selected_pokemon}/> : null}
+        { pokemon?
+          <TrainerMain />:
+          <div className='pokemon_add'>
+            <RaisedButton
+              label="Get Your Pokemon"
+              labelPosition="before"
+              icon={<FontIcon className="material-icons">whatshot</FontIcon>}
+              primary={true}
+              style={{'margin': '0 auto', 'marginTop': '12px', 'marginBottom': '12px', 'width': '18vw'}}
+              onClick={this.handleClick.bind(this)}
+            />
+            <PokemonList api_data={api_data} selectPokemon={this.props.selectPokemon}/>
+          </div>
+        }
+        {!pokemon && selected_pokemon ? <PokemonForm selectedPokemon={selected_pokemon}/> : null}
       </div>
     )
   }

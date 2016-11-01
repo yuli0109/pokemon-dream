@@ -23,9 +23,16 @@ class NavBar extends Component {
 
 
 class LogButton extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+  handleLogin() {
+    this.props.login()
+    this.context.router.push('/trainer_info');
+  }
   render() {
     return (
-      <FlatButton label="Login" style={{color: 'white'}} onClick={this.props.login}/>
+      <FlatButton label="Login" style={{color: 'white'}} onClick={this.handleLogin.bind(this)}/>
     );
   }
 }

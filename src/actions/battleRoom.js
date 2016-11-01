@@ -23,6 +23,7 @@ export const listenToBattlerooms = () => {
 
 export const listenToSeats = () => {
   return (dispatch, getState) => {
+    seatStatusRef.off();
     seatStatusRef.on('value', (snapshot) => {
       dispatch({
         type: C.SEAT_STATUS_RECEIVE,

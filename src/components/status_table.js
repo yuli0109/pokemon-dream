@@ -5,7 +5,7 @@ export default class StatusTable extends Component {
   render() {
     const { stats } = this.props;
     return (
-      <Table style={{'width': '30vw', 'textAlign': 'center'}} height={'15vw'}>
+      <Table className={this.props.classDec} style={{'width': '30vw', 'textAlign': 'center'}} height={'15vw'}>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
         <TableRow>
           <TableHeaderColumn>Name</TableHeaderColumn>

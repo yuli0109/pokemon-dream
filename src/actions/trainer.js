@@ -45,10 +45,12 @@ export const selectPokemon = (pokeIndex) => {
 export const savePokemon = (props) => {
   return (dispatch, getState) => {
     let pokemonNew = {};
+    const { selected_pokemon } = getState().trainer
     pokemonNew[getState().auth.uid] = {
-      name: getState().trainer.selected_pokemon.data.name,
-      pokemon_id: getState().trainer.selected_pokemon.data.id,
-      moves: props
+      name: selected_pokemon.data.name,
+      pokemon_id: selected_pokemon.data.id,
+      moves: props,
+      stats: selected_pokemon.data.stats
     }
     dispatch({
       type: C.SAVE_POKEMON
@@ -71,5 +73,27 @@ export const savePokemon = (props) => {
       }
     });
   };
+};
+
+export const syncPokemon = () => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    trainersRef.child(uid).off();
+    trainersRef.child(uid).on('value', snapshot => {
+      dispatch({
+        type: C.SYNC_POKEMON,
+        data: snapshot.val()
+      });
+      if (snapshot.val()) {
+        const selectPokemonDispatcher= selectPokemon(snapshot.val().pokemon_id);
+        selectPokemonDispatcher(dispatch, getState);
+      }
+    }, error => {
+      dispatch({
+        type: C.SYNC_POKEMON_FAILED,
+        message: error.message
+      })
+    });
+  }
 };
 

@@ -74,3 +74,35 @@
   background: url(https://i.ytimg.com/i/hQluDm6-m4f-ypsmCpPTcg/mq1.jpg?v=50db4c24) no-repeat center center;
 }
 
+.trainer_info {
+  text-align: center;
+}
+
+.trainer_poke_stats {
+  margin: 0 auto;
+}
+
+.ava_stat_pokemon_trainer {
+  width: 60vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ava_name {
+  text-align: center;
+}
+
+.move_discription {
+  width: 60vw;
+  margin: 0 auto;
+}
+
+.move_discription > h1 {
+  text-align: center;
+}
+
+.move_discrip_detail {
+  width: 40vw;
+  margin: 0 auto;
+}

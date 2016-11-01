@@ -5,7 +5,7 @@ const initialState = {
   pokemon: null,
   selected_pokemon: null,
   api_data: null,
-  status: null,
+  status: null
 }
 
 export default (state = initialState, action) => {
@@ -31,6 +31,16 @@ export default (state = initialState, action) => {
         status: 'Submmiting'
       };
     case C.INITIALIZE_TRAINER_SUCCEED:
+      return {
+        ...state,
+        status: action.message
+      };
+    case C.SYNC_POKEMON:
+      return {
+        ...state,
+        pokemon: action.data
+      };
+    case C.SYNC_POKEMON_FAILED:
       return {
         ...state,
         status: action.message
