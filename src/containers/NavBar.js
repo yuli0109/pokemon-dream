@@ -10,11 +10,12 @@ import { connect  } from 'react-redux';
 class NavBar extends Component {
   render() {
     const user = this.props.auth;
+    const { routing } = this.props;
     return (
       <AppBar
       title="Pokemon Dream"
       showMenuIconButton={false}
-      iconElementRight={user.uid?<NavRight logout={this.props.logoutUser}/>:<LogButton login={this.props.openAuth}/>}
+      iconElementRight={user.uid?<NavRight routing={routing} logout={this.props.logoutUser}/>:<LogButton login={this.props.openAuth}/>}
       iconStyleRight={user.uid?{width: '500px'}:{width: '100px'}}
       />
     )
@@ -38,7 +39,10 @@ class LogButton extends Component {
 }
 
 function mapStateToProps(state) {
-  return {auth: state.auth};
+  return {
+    auth: state.auth,
+    routing: state.routing
+  };
 }
 
 const mapDispatchToProps = {
@@ -55,8 +59,12 @@ class NavRight extends Component {
     this.context.router.push('/')
   }
   render() {
+    var initialSelectedIndex;
+    if (this.props.routing.locationBeforeTransitions) {
+      initialSelectedIndex = this.props.routing.locationBeforeTransitions.pathname
+    }
     return (
-      <Tabs>
+      <Tabs initialSelectedIndex={initialSelectedIndex === '/battle_room'?1:0}>
         <Tab label="Trainer" containerElement={<Link to="/trainer_info" />} />
         <Tab label="Battle" containerElement={<Link to="/battle_room" />}/>
         <Tab label="Logout" onClick={this.handleLogout.bind(this)}/>

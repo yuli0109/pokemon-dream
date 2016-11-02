@@ -39,6 +39,16 @@
   justify-content: space-around;
 }
 
+.battleroom_wrap {
+  height: 23vw;
+}
+
+.battle_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .battlerooms {
   width: 100vw;
   height: 60vw;

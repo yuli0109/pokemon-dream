@@ -3,17 +3,21 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import { connect } from 'react-redux';
 import { getPokemon, selectPokemon } from '../actions/trainer';
+import { syncRoute } from '../actions/routing';
 import PokemonList from '../components/pokemon_list';
 import PokemonForm from './pokemon_form';
 import TrainerMain from './trainer_main';
 
 
 class Trainer extends Component {
+  componentWillMount() {
+    this.props.syncRoute(this.props.location)
+  }
   handleClick() {
     this.props.getPokemon()
   }
   render() {
-    const { pokemon, api_data, selected_pokemon } = this.props.trainer
+    const { pokemon, api_data, selected_pokemon } = this.props.trainer;
     return (
       <div className='trainer-main'>
         { pokemon?
@@ -38,8 +42,10 @@ class Trainer extends Component {
 
 
 function mapStateToProps(state) {
-  return {trainer: state.trainer}
+  return {
+    trainer: state.trainer
+  }
 }
 
-export default connect(mapStateToProps, { getPokemon, selectPokemon })(Trainer)
+export default connect(mapStateToProps, { getPokemon, selectPokemon, syncRoute })(Trainer)
 

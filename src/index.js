@@ -4,6 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Router, browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux'
 import ReduxThunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import reducers from './reducers/index';
@@ -30,15 +31,18 @@ const composeEnhancers =
 
 const store = createStore(reducers, composeEnhancers(
     applyMiddleware(...middlewares)
-))
+));
 
 store.dispatch(listenToAuth())
 store.dispatch(listenToBattlerooms())
 
+const history = syncHistoryWithStore(browserHistory, store);
+
+
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider>
-      <Router history={browserHistory} routes={routes} />
+      <Router history={history} routes={routes} />
     </MuiThemeProvider>
   </Provider>,
   document.getElementById('root')
