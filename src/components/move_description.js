@@ -4,6 +4,7 @@ import {List, ListItem} from 'material-ui/List';
 export default class MoveDescription extends Component {
   componentWillMount() {
     this.props.getMove(this.props.pokemon.moves.move_1);
+    this.props.getMove(this.props.pokemon.moves.move_2);
   }
   renderMove(move) {
     return(

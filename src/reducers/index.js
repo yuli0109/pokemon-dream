@@ -4,8 +4,9 @@ import trainer from './trainer';
 import battlerooms from './battlerooms';
 import moves from './moves';
 import battleInfo from './battling';
+import battle_feedback from './battle_feedback';
 import { reducer as formReducer } from 'redux-form';
-import { routerReducer } from 'react-router-redux'
+import { routerReducer } from 'react-router-redux';
 
 const rootReducer = combineReducers({
   auth,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   battlerooms,
   moves,
   battleInfo,
+  battle_feedback,
   form: formReducer,
   routing: routerReducer
 });

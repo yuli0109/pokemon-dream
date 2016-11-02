@@ -26,6 +26,7 @@ export const initializeBattle  = (room) => {
     const trainer_2 = room.seat_2.uid;
     const battle = {
       Date: battleDate,
+      nextTurn: trainer_1,
       trainers: {
         [trainer_1]: null,
         [trainer_2]: null
@@ -81,6 +82,8 @@ export const loadBattleOnce = (battleId) => {
 export const listenToBattle = (battleId) => {
   return (dispatch) => {
     battleRef.child(battleId).on('value', snapshot => {
+      console.log('BattleInfo changed')
+      console.log(snapshot.val())
       dispatch({
         type: C.SYNC_BATTLE,
         battle: snapshot.val()
@@ -95,6 +98,12 @@ export const endListenToBattle = (battleId) => {
     dispatch({
       type: C.STOP_LISTENING_BATTLE
     })
+  }
+};
+
+export const switchTurn = (battleId, opponentId) => {
+  return (dispatch) => {
+    battleRef.child(battleId).update({nextTurn: opponentId});
   }
 }
 

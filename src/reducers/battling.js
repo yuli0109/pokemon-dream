@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
         ...state,
         battleDetail: action.battle
       }
-    case C.SYNC_BATTLLE:
+    case C.SYNC_BATTLE:
       return {
         ...state,
         battleDetail: action.battle

@@ -3,7 +3,11 @@ import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
 import Opponent from '../components/opponent';
 import TrainerSelf from '../components/TrainerSelf';
-import { surrenderBattle, loadBattleOnce, listenToBattle, endListenToBattle } from '../actions/battling';
+import { surrenderBattle, loadBattleOnce, listenToBattle, endListenToBattle, switchTurn } from '../actions/battling';
+import { getMoveDetail } from '../actions/moves';
+import { logOpen, logClose } from '../actions/battle_feedback';
+import Snackbar from 'material-ui/Snackbar';
+
 
 class BattlingPage extends Component {
   componentWillMount() {
@@ -12,25 +16,32 @@ class BattlingPage extends Component {
     this.props.listenToBattle(battleKey)
   }
   componentWillUnmount() {
-
+    const battleKey = this.props.location.pathname.split('/')[2];
+    this.props.endListenToBattle(battleKey)
   }
   handleSurrender() {
     this.props.surrenderBattle()
   }
   render() {
-    const { battleInfo, auth } = this.props
+    const { battleInfo, auth, getMoveDetail, moves, feedback, logOpen, logClose, switchTurn } = this.props
+    const battleKey = this.props.location.pathname.split('/')[2];
     return(
       <div>
         <h1>You are in battle Now!</h1>
         {battleInfo.battleDetail?
           <div className="battle_page_container">
             <Opponent hostId={auth.uid} trainers={battleInfo.battleDetail.trainers} />
-            <TrainerSelf trainer={battleInfo.battleDetail.trainers[auth.uid]} />
+            <TrainerSelf battleInfo={battleInfo} battleKey={battleKey} switchTurn={switchTurn} hostId={auth.uid} trainers={battleInfo.battleDetail.trainers} logOpen={logOpen} movesDetail={moves} getMove={getMoveDetail} trainer={battleInfo.battleDetail.trainers[auth.uid]} />
           </div>
-          // battleInfo.battleDetail.trainers[auth.uid].name
           :'no detail yet'
         }
         <FlatButton onClick={this.handleSurrender.bind(this)} label="Surrender" secondary={true} />
+        <Snackbar
+          open={feedback.open}
+          message={feedback.message}
+          autoHideDuration={3000}
+          onRequestClose={logClose}
+        />
       </div>
     )
   }
@@ -39,10 +50,12 @@ class BattlingPage extends Component {
 function mapStateToProps(state) {
   return {
     battleInfo: state.battleInfo,
-    auth: state.auth
+    auth: state.auth,
+    moves: state.moves,
+    feedback: state.battle_feedback
   }
 }
 
 
 
-export default connect(mapStateToProps, { surrenderBattle, loadBattleOnce, listenToBattle, endListenToBattle })(BattlingPage)
+export default connect(mapStateToProps, { surrenderBattle, loadBattleOnce, listenToBattle, endListenToBattle, switchTurn, getMoveDetail, logOpen, logClose })(BattlingPage)

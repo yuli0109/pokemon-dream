@@ -148,7 +148,20 @@
 
 .trainer_self_ava_name {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-end;
-  width: 50vw;
+  width: 20vw;
+}
+
+.trainer_self_hp {
+  width: 30vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.move_option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

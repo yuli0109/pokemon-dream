@@ -10,7 +10,7 @@ export default class HpBar extends Component {
   render() {
     return (
       <div className="heath_point">
-        Hp:
+        <h4>Hp:</h4>
         <LinearProgress style={style} mode="determinate" value={100} />
       </div>
     )
