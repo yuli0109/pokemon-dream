@@ -3,6 +3,7 @@ import trainer from './trainer';
 import firebase from './firebase';
 import battlerooms from './battlerooms';
 import routing from './routing';
+import battling from './battling';
 
 export default Object.assign({},
   auth,
@@ -10,4 +11,5 @@ export default Object.assign({},
   trainer,
   battlerooms,
   routing,
+  battling
 );

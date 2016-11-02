@@ -1,14 +1,26 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import FlashOn from 'material-ui/svg-icons/image/flash-on';
 import BattleRoom from '../components/battleroom';
 import { takeSeat, leaveSeat } from '../actions/battleRoom';
 import { syncRoute } from '../actions/routing';
+import { initializeBattle } from '../actions/battling';
 
 class BattleRooms extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
   componentWillMount() {
     this.props.syncRoute(this.props.location);
+  }
+  handleBattle(room){
+    if (!room.seat_1.isAvaliable && !room.seat_2.isAvaliable){
+      this.props.initializeBattle(room)
+    } else {
+      console.log('Need two trainer to begin battle');
+    }
+    // this.context.router.push('/battle_page')
   }
   render() {
     const { auth, battlerooms, takeSeat, leaveSeat } = this.props;
@@ -19,7 +31,7 @@ class BattleRooms extends Component {
           <div className="battleroom_wrap">
             <BattleRoom uid={auth.uid} roomCode="room_1" takeSeat={takeSeat} leaveSeat={leaveSeat} roomInfo={battlerooms.room_1} status={battlerooms.status}/>
             <div className="battle_btn">
-              <FloatingActionButton>
+              <FloatingActionButton onClick={this.handleBattle.bind(this, battlerooms.room_1)}>
                 <FlashOn />
               </FloatingActionButton>
             </div>
@@ -38,4 +50,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { takeSeat, leaveSeat, syncRoute })(BattleRooms)
+export default connect(mapStateToProps, { takeSeat, leaveSeat, syncRoute, initializeBattle })(BattleRooms)

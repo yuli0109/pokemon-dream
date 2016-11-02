@@ -1,0 +1,3 @@
+export default {
+  INITIALIZE_BATTLE: 'INITIALIZE_BATTLE',
+}
