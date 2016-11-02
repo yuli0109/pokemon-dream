@@ -17,10 +17,10 @@ class BattleRooms extends Component {
   handleBattle(room){
     if (!room.seat_1.isAvaliable && !room.seat_2.isAvaliable){
       this.props.initializeBattle(room)
+      // this.context.router.push(`/battle_page`)
     } else {
       console.log('Need two trainer to begin battle');
     }
-    // this.context.router.push('/battle_page')
   }
   render() {
     const { auth, battlerooms, takeSeat, leaveSeat } = this.props;

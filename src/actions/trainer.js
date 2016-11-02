@@ -4,6 +4,7 @@ import { database } from '../firebaseApp';
 
 const trainersRef = database.ref('trainers');
 const seatStatusRef = database.ref('seatStatus');
+const locationRef = database.ref('location');
 
 const baseUrl = `https://pokeapi.co/api/v2/pokemon/`;
 
@@ -50,7 +51,9 @@ export const savePokemon = (props) => {
       name: selected_pokemon.data.name,
       pokemon_id: selected_pokemon.data.id,
       moves: props,
-      stats: selected_pokemon.data.stats
+      stats: selected_pokemon.data.stats,
+      front_img: selected_pokemon.data.sprites.front_default,
+      back_img: selected_pokemon.data.sprites.back_default
     }
     dispatch({
       type: C.SAVE_POKEMON
@@ -70,6 +73,9 @@ export const savePokemon = (props) => {
         let seatNew = {};
         seatNew[getState().auth.uid] = false;
         seatStatusRef.update(seatNew)
+        let loactionNew = {};
+        loactionNew[getState().auth.uid] = '/battle_room';
+        locationRef.update(loactionNew)
       }
     });
   };

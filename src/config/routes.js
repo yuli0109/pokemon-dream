@@ -11,6 +11,6 @@ export default (
     <IndexRoute component={Welcome} />
     <Route path="/trainer_info" component={Trainer} />
     <Route path="/battle_room" component={BattleRooms} />
-    <Route path="/battle_page" component={BattlingPage} />
+    <Route path="/battle/:battleKey" component={BattlingPage} />
   </Route>
 )

@@ -116,3 +116,39 @@
   width: 40vw;
   margin: 0 auto;
 }
+
+.battle_page_container {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.opponent_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.trainer_self_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.opponent_ava_name {
+  width: 17vw;
+}
+
+.opponent_hp {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.trainer_self_ava_name {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 50vw;
+}
