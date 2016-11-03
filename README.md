@@ -8,6 +8,8 @@ Clone the repo and then:
 ````
 npm start
 ````
+##Deployed App 
+**[react-realtime-pokemon.herokuapp.com](https://react-realtime-pokemon.herokuapp.com/)**
 
 ##Trello Board
 [Click me](https://trello.com/b/2lfz56sJ/pokemon-dream)
