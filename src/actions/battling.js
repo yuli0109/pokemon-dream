@@ -31,9 +31,9 @@ export const initializeBattle  = (room) => {
         [trainer_1]: null,
         [trainer_2]: null
       },
-      score: {
-        [trainer_1]: 0,
-        [trainer_2]: 0
+      health: {
+        [trainer_1]: 100,
+        [trainer_2]: 100
       }
     };
     trainerRef.child(room.seat_1.uid).once('value').then(snapshot => {
@@ -82,8 +82,6 @@ export const loadBattleOnce = (battleId) => {
 export const listenToBattle = (battleId) => {
   return (dispatch) => {
     battleRef.child(battleId).on('value', snapshot => {
-      console.log('BattleInfo changed')
-      console.log(snapshot.val())
       dispatch({
         type: C.SYNC_BATTLE,
         battle: snapshot.val()
@@ -107,6 +105,28 @@ export const switchTurn = (battleId, opponentId) => {
   }
 }
 
+export const decreHeathPoint = (battleId, opponentId, currentHp, damage, battleEnd) => {
+  return (dispatch, getState) => {
+    const nextHp = currentHp - damage;
+    battleRef.child(battleId).child('health').update({[opponentId]: nextHp}).then(() => {
+      if (battleEnd) {
+        dispatch({
+          type: C.LOG_FEEDBACK,
+          message: `Opponent's pokemon is down, battle end in 3 seconds`
+        })
+        window.setTimeout(() => {
+          const trainers = getState().battleInfo.battleDetail.trainers;
+          const trainersKey = Object.keys(trainers);
+          const trainer_1 = trainersKey[0];
+          const trainer_2 = trainersKey[1];
+          locationRef.update({[trainer_1]: `/battle_room`, [trainer_2]: `/battle_room`}).then(() => {
+            browserHistory.push('/battle_room')
+          })
+        },3000)
+      }
+    })
+  }
+}
 
 
 

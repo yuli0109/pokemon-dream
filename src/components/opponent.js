@@ -4,7 +4,7 @@ import HpBar from './HpBar';
 
 export default class Opponent extends Component {
   render() {
-    const { trainers, hostId } =  this.props
+    const { trainers, hostId, battleInfo } =  this.props
     const trainersIds = Object.keys(trainers)
     const opponentId = trainersIds.find(id => id !== hostId);
     const opponentInfo = trainers[opponentId];
@@ -19,7 +19,7 @@ export default class Opponent extends Component {
           <h4 style={{'textAlign': 'center'}}>{opponentInfo.name.toUpperCase()}</h4>
         </div>
         <div className="opponent_hp">
-          <HpBar />
+          <HpBar hp={battleInfo.battleDetail.health[opponentId]}/>
         </div>
       </div>
     )

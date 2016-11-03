@@ -8,6 +8,11 @@ export default class MoveOption extends Component {
     if (canMove) {
       this.props.logMove(`${this.props.pokemonName} made ${move.name}, the damge is ${move.power}`);
       this.props.switchTurn(this.props.battleKey, this.props.opponentId)
+      if (this.props.currentHp < move.power) {
+        this.props.decreHeathPoint(this.props.battleKey, this.props.opponentId, this.props.currentHp, move.power, true)
+      } else {
+        this.props.decreHeathPoint(this.props.battleKey, this.props.opponentId, this.props.currentHp, move.power, false)
+      }
     } else {
       this.props.logMove(`Not your turn! Wait your opponent move!`);
     }

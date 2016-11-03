@@ -11,7 +11,7 @@ export default class HpBar extends Component {
     return (
       <div className="heath_point">
         <h4>Hp:</h4>
-        <LinearProgress style={style} mode="determinate" value={100} />
+        <LinearProgress style={style} mode="determinate" value={this.props.hp} />
       </div>
     )
   }
